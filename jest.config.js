@@ -1,57 +1,34 @@
-// jest.config.js - Root Jest configuration file
-
 module.exports = {
-  // Base configuration for all tests
   projects: [
-    // Server-side tests configuration
     {
-      displayName: 'server',
-      testEnvironment: 'node',
-      testMatch: ['<rootDir>/server/tests/**/*.test.js'],
-      moduleFileExtensions: ['js', 'json', 'node'],
-      setupFilesAfterEnv: ['<rootDir>/server/tests/setup.js'],
-      coverageDirectory: '<rootDir>/coverage/server',
-      collectCoverageFrom: [
-        'server/src/**/*.js',
-        '!server/src/config/**',
-        '!**/node_modules/**',
-      ],
+      displayName: "client",
+      testMatch: ["<rootDir>/client/src/tests/**/*.test.{js,jsx}"],
+      testEnvironment: "jsdom",
+      setupFilesAfterEnv: ["<rootDir>/client/src/setupTests.js"],
+      moduleNameMapping: {
+        "^@/(.*)$": "<rootDir>/client/src/$1",
+      },
     },
-    
-    // Client-side tests configuration
     {
-      displayName: 'client',
-      testEnvironment: 'jsdom',
-      testMatch: ['<rootDir>/client/src/**/*.test.{js,jsx}'],
-      moduleFileExtensions: ['js', 'jsx', 'json'],
-      moduleNameMapper: {
-        '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
-        '\\.(jpg|jpeg|png|gif|webp|svg)$': '<rootDir>/client/src/tests/__mocks__/fileMock.js',
-      },
-      setupFilesAfterEnv: ['<rootDir>/client/src/tests/setup.js'],
-      transform: {
-        '^.+\\.(js|jsx)$': 'babel-jest',
-      },
-      coverageDirectory: '<rootDir>/coverage/client',
-      collectCoverageFrom: [
-        'client/src/**/*.{js,jsx}',
-        '!client/src/index.js',
-        '!**/node_modules/**',
-      ],
+      displayName: "server",
+      testMatch: ["<rootDir>/server/tests/**/*.test.js"],
+      testEnvironment: "node",
+      setupFilesAfterEnv: ["<rootDir>/server/tests/setup.js"],
     },
   ],
-  
-  // Global configuration
-  verbose: true,
-  collectCoverage: true,
-  coverageReporters: ['text', 'lcov', 'clover', 'html'],
+  collectCoverageFrom: [
+    "client/src/**/*.{js,jsx}",
+    "server/src/**/*.js",
+    "!**/node_modules/**",
+    "!**/build/**",
+    "!**/coverage/**",
+  ],
   coverageThreshold: {
     global: {
-      statements: 70,
-      branches: 60,
+      branches: 70,
       functions: 70,
       lines: 70,
+      statements: 70,
     },
   },
-  testTimeout: 10000,
-}; 
+}

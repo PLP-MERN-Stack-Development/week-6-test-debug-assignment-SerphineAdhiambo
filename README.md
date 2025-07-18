@@ -1,24 +1,16 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=19951529&assignment_repo_type=AssignmentRepo)
-# Testing and Debugging MERN Applications
+# MERN Stack Testing Suite
 
-This assignment focuses on implementing comprehensive testing strategies for a MERN stack application, including unit testing, integration testing, and end-to-end testing, along with debugging techniques.
-
-## Assignment Overview
-
-You will:
-1. Set up testing environments for both client and server
-2. Write unit tests for React components and server functions
-3. Implement integration tests for API endpoints
-4. Create end-to-end tests for critical user flows
-5. Apply debugging techniques for common MERN stack issues
+A comprehensive testing environment for MERN (MongoDB, Express.js, React, Node.js) stack applications.
 
 ## Project Structure
 
-```
+\`\`\`
 mern-testing/
 ├── client/                 # React front-end
 │   ├── src/                # React source code
 │   │   ├── components/     # React components
+│   │   ├── contexts/       # React contexts
+│   │   ├── utils/          # Utility functions
 │   │   ├── tests/          # Client-side tests
 │   │   │   ├── unit/       # Unit tests
 │   │   │   └── integration/ # Integration tests
@@ -29,60 +21,230 @@ mern-testing/
 │   │   ├── controllers/    # Route controllers
 │   │   ├── models/         # Mongoose models
 │   │   ├── routes/         # API routes
-│   │   └── middleware/     # Custom middleware
+│   │   ├── middleware/     # Custom middleware
+│   │   └── utils/          # Server utilities
 │   └── tests/              # Server-side tests
 │       ├── unit/           # Unit tests
 │       └── integration/    # Integration tests
 ├── jest.config.js          # Jest configuration
 └── package.json            # Project dependencies
-```
+\`\`\`
+
+## Features
+
+### 🧪 Testing Framework
+- **Jest** - JavaScript testing framework
+- **React Testing Library** - React component testing
+- **Supertest** - HTTP assertion library
+- **Cypress** - End-to-end testing
+- **MongoDB Memory Server** - In-memory database for testing
+
+### 🔧 Testing Types
+- **Unit Testing** - Individual component and function testing
+- **Integration Testing** - API endpoints and database operations
+- **End-to-End Testing** - Complete user workflows
+- **Component Testing** - React component behavior
 
 ## Getting Started
 
-1. Accept the GitHub Classroom assignment invitation
-2. Clone your personal repository that was created by GitHub Classroom
-3. Follow the setup instructions in the `Week6-Assignment.md` file
-4. Explore the starter code and existing tests
-5. Complete the tasks outlined in the assignment
-
-## Files Included
-
-- `Week6-Assignment.md`: Detailed assignment instructions
-- Starter code for a MERN application with basic test setup:
-  - Sample React components with test files
-  - Express routes with test files
-  - Jest and testing library configurations
-  - Example tests for reference
-
-## Requirements
-
-- Node.js (v18 or higher)
-- MongoDB (local installation or Atlas account)
+### Prerequisites
+- Node.js 16+
+- MongoDB
 - npm or yarn
-- Basic understanding of testing concepts
 
-## Testing Tools
+### Installation
 
-- Jest: JavaScript testing framework
-- React Testing Library: Testing utilities for React
-- Supertest: HTTP assertions for API testing
-- Cypress/Playwright: End-to-end testing framework
-- MongoDB Memory Server: In-memory MongoDB for testing
+1. Clone the repository
+\`\`\`bash
+git clone <repository-url>
+cd mern-testing
+\`\`\`
 
-## Submission
+2. Install all dependencies
+\`\`\`bash
+npm run install:all
+\`\`\`
 
-Your work will be automatically submitted when you push to your GitHub Classroom repository. Make sure to:
+3. Set up environment variables
+\`\`\`bash
+# Create server/.env
+cd server
+cp .env.example .env
+\`\`\`
 
-1. Complete all required tests (unit, integration, and end-to-end)
-2. Achieve at least 70% code coverage for unit tests
-3. Document your testing strategy in the README.md
-4. Include screenshots of your test coverage reports
-5. Demonstrate debugging techniques in your code
+4. Start the development servers
+\`\`\`bash
+# From root directory
+npm run dev
+\`\`\`
 
-## Resources
+This will start:
+- React client on http://localhost:3000
+- Express server on http://localhost:5000
 
-- [Jest Documentation](https://jestjs.io/docs/getting-started)
-- [React Testing Library Documentation](https://testing-library.com/docs/react-testing-library/intro/)
-- [Supertest Documentation](https://github.com/visionmedia/supertest)
-- [Cypress Documentation](https://docs.cypress.io/)
-- [MongoDB Testing Best Practices](https://www.mongodb.com/blog/post/mongodb-testing-best-practices) 
+## Testing Commands
+
+### All Tests
+\`\`\`bash
+# Run all tests (client + server)
+npm test
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run complete test suite including E2E
+npm run test:all
+\`\`\`
+
+### Client Tests
+\`\`\`bash
+# Run client tests
+npm run client:test
+
+# Run client tests in watch mode
+cd client && npm test
+\`\`\`
+
+### Server Tests
+\`\`\`bash
+# Run server tests
+npm run server:test
+
+# Run server tests in watch mode
+cd server && npm run test:watch
+\`\`\`
+
+### End-to-End Tests
+\`\`\`bash
+# Open Cypress test runner
+npm run test:e2e
+
+# Run E2E tests headlessly
+npm run test:e2e:headless
+\`\`\`
+
+## API Endpoints
+
+### Authentication
+- `POST /api/auth/register` - User registration
+- `POST /api/auth/login` - User login
+- `GET /api/auth/profile` - Get user profile (protected)
+
+### Users
+- `GET /api/users` - Get all users (protected)
+- `GET /api/users/:id` - Get user by ID (protected)
+- `PUT /api/users/:id` - Update user (protected)
+- `DELETE /api/users/:id` - Delete user (admin only)
+
+## Environment Variables
+
+### Server (.env)
+\`\`\`
+NODE_ENV=development
+PORT=5000
+MONGODB_URI=mongodb://localhost:27017/mern-testing
+JWT_SECRET=your-super-secret-jwt-key
+CLIENT_URL=http://localhost:3000
+\`\`\`
+
+### Client (.env)
+\`\`\`
+REACT_APP_API_URL=http://localhost:5000/api
+\`\`\`
+
+## Testing Strategies
+
+### Unit Testing
+- **Components**: Rendering, props, user interactions
+- **Utilities**: Function inputs/outputs, edge cases
+- **Controllers**: Business logic, error handling
+- **Models**: Data validation, methods
+
+### Integration Testing
+- **API Endpoints**: Request/response cycles
+- **Database Operations**: CRUD operations
+- **Authentication**: Login/logout flows
+- **Component Integration**: API interactions
+
+### End-to-End Testing
+- **User Flows**: Registration, login, navigation
+- **Error Handling**: Network failures, validation
+- **Cross-browser**: Compatibility testing
+- **Visual Testing**: UI consistency
+
+## Development Workflow
+
+1. **Start Development**
+   \`\`\`bash
+   npm run dev
+   \`\`\`
+
+2. **Run Tests During Development**
+   \`\`\`bash
+   # Terminal 1: Run client tests in watch mode
+   cd client && npm test
+
+   # Terminal 2: Run server tests in watch mode
+   cd server && npm run test:watch
+   \`\`\`
+
+3. **Before Committing**
+   \`\`\`bash
+   npm run test:all
+   \`\`\`
+
+## Debugging
+
+### Client-Side
+- React Developer Tools
+- Browser DevTools
+- Error boundaries for graceful error handling
+
+### Server-Side
+- Structured logging with different levels
+- Error handling middleware
+- Request/response logging
+
+### Testing
+- Jest debugging with `--verbose` flag
+- Cypress debugging with browser DevTools
+- Test isolation and cleanup
+
+## Contributing
+
+1. Write tests for new features
+2. Maintain code coverage above 70%
+3. Follow existing code patterns
+4. Update documentation
+
+## Troubleshooting
+
+### Common Issues
+
+**Port conflicts**
+- Change ports in package.json scripts
+- Check if ports 3000/5000 are available
+
+**Database connection**
+- Ensure MongoDB is running
+- Check connection string in .env
+
+**Test failures**
+- Clear test database between runs
+- Check for async/await issues
+- Verify mock implementations
+
+## Scripts Reference
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start both client and server |
+| `npm run build` | Build both applications |
+| `npm test` | Run all tests |
+| `npm run test:coverage` | Run tests with coverage |
+| `npm run test:e2e` | Open Cypress test runner |
+| `npm run install:all` | Install all dependencies |
+
+## License
+
+MIT License - see LICENSE file for details
